@@ -50,3 +50,19 @@ module.exports.updateTodo = (req, res) => {
             console.log(err);
         });
 };
+
+// Delete
+module.exports.DeleteTodo = (req,res)=>{
+    const {id} = req.params
+
+    TodoModel.findByIdAndDelete(id)
+    .then(data =>{
+        if(!data){
+            return res.status(404).send({error:'Todo not found'})
+        }
+        res.send('delete successfully');
+    })
+    .catch(err =>{
+        res.status(500).send({error:"Failed to delete todo"});
+    })
+}
